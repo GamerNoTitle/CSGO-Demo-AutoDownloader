@@ -11,5 +11,21 @@ This tool can help you download your CSGO demo after you play the game, and save
 
 ## Getting Started
 
-### Use it on your local machine
+### Fill the config
 
+When you download the pack from RELEASE page (or clone the source code), you got a `config.json`. Now I am going to tell you the detailed information of the varibles
+
+```json
+{
+    "delay": 3600,
+    "sessionid": "",
+    "steamid64": 0,
+    "steamcustomid": "",
+    "steamcookie": "",
+    "previousdownload": true,
+    "proxies": {
+        "http": "",
+        "https": ""
+    }
+}
+```
