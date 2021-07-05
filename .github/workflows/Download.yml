@@ -1,0 +1,39 @@
+name: AutoDownload
+
+on: 
+  workflow_dispatch:  # A button in Action page to start it
+  release:
+    types: [published]
+  push:
+    tags:
+    - 'v*'
+  #  branches: 
+  #    - master
+  schedule:
+    - cron: "0 0 * * *"
+  watch:
+    types: [started]
+   
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id  # Click on STAR of your own to start it
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Install requirements
+      run: |
+        pip install -r requirements.txt
+    - name: Run script
+      env: |
+        sessionid: ${{secrets.sessionid}}
+        steamid64: ${{secrets.steamid64}}
+        steamcustomid: ${{secrets.steamcustomid}}
+        steamcookie: ${{secrets.steamcookie}}
+        previousdownload: ${{secrets.previousdownload}}
+      run: |
+        python3 Download-Action.py "$sessionid" "$steamid64" "$steamcustomid" "$steamcookie" "$previousdownload"

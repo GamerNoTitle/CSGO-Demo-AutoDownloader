@@ -6,10 +6,6 @@ from http.cookies import SimpleCookie
 import os
 import sys
 
-with open('./config.json','r') as f:
-    config=js.load(f)
-    f.close()
-
 WelcomeMsg='''======================== Counter-Strike: Global Offensive Demo Downloader ========================
 Thanks for your using on CSGO-Demo-AutoDownloader, This is a automatic downloader that helps you download your newest CSGO demos
 The project is maintained by GamerNoTitle. If this project helps you, consider donate please.
@@ -23,14 +19,9 @@ WechatPay (QR Code): https://cdn.jsdelivr.net/gh/GamerNoTitle/Picture-repo-v1@ma
 
 print(WelcomeMsg)
 
-steamcustomid = config['steamcustomid']
-steamid64 = config['steamid64']
-proxies = config['proxies']
-cookie = config['steamcookie']
+sessionid,steamid64,steamcustomid,cookie,previousdownload = sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5]
 cookieSimple = SimpleCookie(cookie)
 cookieDecoded = {i.key:i.value for i in cookieSimple.values()}
-sessionid=cookieDecoded['sessionid']
-previousdownload=config['previousdownload']
 continuetoken=0
 headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -60,10 +51,7 @@ else:
 
 def progressbar(url,path):
     start = time.time() 
-    if(proxies['http']=='' and proxies['https']==''):
-        response = r.get(url, stream=True) 
-    else:
-        response = r.get(url, stream=True, proxies=proxies) 
+    response = r.get(url, stream=True) 
     size = 0    
     chunk_size = 1024  
     content_size = int(response.headers['content-length'])  
@@ -85,13 +73,7 @@ def Download():
     if not CompetitionStatsLink:
         print('[ERROR]Neither steamid64 nor steamcustomid has been set. The program will exit now.')
         sys.exit()
-    if(proxies['http']=='' and proxies['https']==''):
-        print('[WARN]Proxies not set yet, the program will not run as proxy mode.')
-        CompetitionList = r.get(CompetitionStatsLink, headers=headers).text
-    else:
-        print('[INFO]Proxies have been set, the program will run as proxy mode')
-        proxyenabled=True
-        CompetitionList = r.get(CompetitionStatsLink, proxies=proxies, headers=headers).text
+    CompetitionList = r.get(CompetitionStatsLink, headers=headers).text
     while True:
         LinkList=[]
         LinkList = re.findall(r'"http:\\\/\\\/replay141.valve.net\\\/730\\\/................................\.dem\.bz2', CompetitionList)
@@ -116,10 +98,7 @@ def Download():
                 #     f.close
         if previousdownload:
             print('[INFO]Previous download mode is enabled. Download process will continue.')
-            if proxyenabled:
-                CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(continuetoken,sessionid),proxies=proxies,headers=headers).text
-            else:
-                CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(continuetoken,sessionid),headers=headers).text
+            CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(continuetoken,sessionid),headers=headers).text
         else:
             print('[INFO]Previous download mode is disabled. The program will now exit.')
             break
