@@ -141,3 +141,4 @@ def Download():
 
 if __name__ == '__main__':
     Download()
+    input("\nPress ENTER to continue...")
