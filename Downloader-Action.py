@@ -96,7 +96,7 @@ def Download():
                 # with open('./Demo/'+filename,'wb+') as f:
                 #     f.write(r.get(filelink.replace('\\','').replace('"','')).content)
                 #     f.close
-        if previousdownload:
+        if previousdownload == 'true' or previousdownload == 'True':
             print('[INFO]Previous download mode is enabled. Download process will continue.')
             CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(continuetoken,sessionid),headers=headers).text
         else:
