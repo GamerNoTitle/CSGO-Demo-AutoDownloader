@@ -11,4 +11,5 @@ This tool can help you download your CSGO demo after you play the game, and save
 
 ## Getting Started
 
-Still Developing...
+### Use it on your local machine
+
