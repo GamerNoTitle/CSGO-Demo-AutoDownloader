@@ -78,7 +78,7 @@ def progressbar(url,path):
                     size +=len(data)
                     print('\r'+'[INFO]Downloading: %s%.2f%%' % ('>'*int(size*50/ content_size), float(size / content_size * 100)) ,end=' ')
         end = time.time()
-        print('[INFO]Download completed! Times: %.2f seconds' % (end - start))
+        print('\n[INFO]Download completed! Times: %.2f seconds' % (end - start))
     except:
         print('[INFO]Download failed.')
 
@@ -137,7 +137,7 @@ def Download():
                 CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(continuetoken,sessionid),headers=headers).text
         else:
             print('[INFO]Previous download mode is disabled. The program will now exit.')
-            break
+            
 
 if __name__ == '__main__':
     Download()
