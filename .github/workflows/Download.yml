@@ -36,6 +36,7 @@ jobs:
         steamcookie: ${{secrets.steamcookie}}
         previousdownload: ${{secrets.previousdownload}}
       run: |
+        git branch
         git switch Demo
         python3 Download-Action.py "$sessionid" "$steamid64" "$steamcustomid" "$steamcookie" "$previousdownload"
     - name: 'GitHub Push'
