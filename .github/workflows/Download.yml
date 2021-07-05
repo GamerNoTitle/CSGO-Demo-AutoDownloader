@@ -36,7 +36,7 @@ jobs:
         steamcookie: ${{secrets.steamcookie}}
         previousdownload: ${{secrets.previousdownload}}
       run: |
-        python3 Download-Action.py "$sessionid" "$steamid64" "$steamcustomid" "$steamcookie" "$previousdownload"
+        python3 Downloader-Action.py "$sessionid" "$steamid64" "$steamcustomid" "$steamcookie" "$previousdownload"
     - name: 'GitHub Push'
       if: steps.commit.output.status != 'success'
       uses: ad-m/github-push-action@v0.6.0
