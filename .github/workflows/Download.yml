@@ -37,6 +37,13 @@ jobs:
         previousdownload: ${{secrets.previousdownload}}
       run: |
         python3 Downloader-Action.py "$sessionid" "$steamid64" "$steamcustomid" "$steamcookie" "$previousdownload"
+    - name: Commit files
+      run: |
+        git add .
+        git config --global user.name "CSGO-Demo-Downloader"
+        git config --global user.email "CSGO-Demo-Downloader@dl.org"
+        git commit -m "Downloaded Demos"
+        
     - name: 'GitHub Push'
       if: steps.commit.output.status != 'success'
       uses: ad-m/github-push-action@v0.6.0
