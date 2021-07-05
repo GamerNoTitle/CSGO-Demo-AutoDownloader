@@ -8,6 +8,8 @@
 
 This tool can help you download your CSGO demo after you play the game, and save it in `Demo` folder.
 
+You can download it from [RELEASE](https://github.com/GamerNoTitle/CSGO-Demo-AutoDownloader/releases) page.
+
 ## Getting Started
 
 ### Get your variables
