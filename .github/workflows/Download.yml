@@ -29,7 +29,7 @@ jobs:
       run: |
         pip install -r requirements.txt
     - name: Run script
-      env: |
+      env: 
         sessionid: ${{secrets.sessionid}}
         steamid64: ${{secrets.steamid64}}
         steamcustomid: ${{secrets.steamcustomid}}
