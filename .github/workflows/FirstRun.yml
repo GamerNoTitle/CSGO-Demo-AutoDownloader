@@ -1,4 +1,4 @@
-name: AutoDownload
+name: FirstRun
 
 on: 
   workflow_dispatch:  # A button in Action page to start it
@@ -9,8 +9,6 @@ on:
     - 'v*'
   #  branches: 
   #    - master
-  schedule:
-    - cron: "0 0 * * *"
   watch:
     types: [started]
    
@@ -28,16 +26,14 @@ jobs:
     - name: Install requirements
       run: |
         pip install -r requirements.txt
-    - name: Run script
-      env: |
-        sessionid: ${{secrets.sessionid}}
-        steamid64: ${{secrets.steamid64}}
-        steamcustomid: ${{secrets.steamcustomid}}
-        steamcookie: ${{secrets.steamcookie}}
-        previousdownload: ${{secrets.previousdownload}}
+    - name: Checkout branch
       run: |
-        git switch Demo
-        python3 Download-Action.py "$sessionid" "$steamid64" "$steamcustomid" "$steamcookie" "$previousdownload"
+        git checkout -b Demo
+        echo $(cat /proc/sys/kernel/random/uuid) > UUID.txt
+        git add .
+        git config --global user.name "CSGO-Demo-Downloader"
+        git config --global user.email "CSGO-Demo-Downloader@demodl.org"
+        git commit -m "Create Demo Branch"
     - name: 'GitHub Push'
       if: steps.commit.output.status != 'success'
       uses: ad-m/github-push-action@v0.6.0
