@@ -1,6 +1,5 @@
-# CSGO-Demo-AutoDownloader
-
 <div align='center'>
+    <h1>CSGO-Demo-AutoDownloader</h1>
     <h2>Language</h2>
     English | <a href=''>简体中文</a>
 </div>
