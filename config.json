@@ -1,7 +1,11 @@
 {
     "delay": 3600,
     "sessionid": "",
-    "steamid64": 76561198309889674,
-    "steamcustomid": "bili33",
-    "steamcookie": ""
+    "steamid64": 0,
+    "steamcustomid": "",
+    "steamcookie": "",
+    "proxies": {
+        "http": "",
+        "https": ""
+    }
 }
