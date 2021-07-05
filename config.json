@@ -4,6 +4,7 @@
     "steamid64": 0,
     "steamcustomid": "",
     "steamcookie": "",
+    "previousdownload": true,
     "proxies": {
         "http": "",
         "https": ""

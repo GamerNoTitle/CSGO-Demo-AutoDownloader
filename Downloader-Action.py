@@ -32,7 +32,6 @@ cookieDecoded = {i.key:i.value for i in cookieSimple.values()}
 sessionid=cookieDecoded['sessionid']
 previousdownload=config['previousdownload']
 continuetoken=0
-delay=config['delay']
 headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
     'Accept-Encoding': 'gzip, deflate, br',
@@ -82,15 +81,7 @@ def progressbar(url,path):
     except:
         print('[INFO]Download failed.')
 
-if steamcustomid == '' and steamid64 != 0:
-    CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(steamid64)
-elif steamcustomid != '':
-    CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(steamcustomid)
-else:  
-    CompetitionStatsLink = False
-
 def Download():
-    global CompetitionStatsLink
     if not CompetitionStatsLink:
         print('[ERROR]Neither steamid64 nor steamcustomid has been set. The program will exit now.')
         sys.exit()
@@ -105,14 +96,8 @@ def Download():
         LinkList=[]
         LinkList = re.findall(r'"http:\\\/\\\/replay141.valve.net\\\/730\\\/................................\.dem\.bz2', CompetitionList)
         if LinkList == []:
-            print('[INFO]There\'s no any demo to download, download process accomplished. The program will now sleep for {} seconds and work again.'.format(delay))
-            if steamcustomid == '' and steamid64 != 0:
-                CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(steamid64)
-            elif steamcustomid != '':
-                CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(steamcustomid)
-            else:  
-                CompetitionStatsLink = False
-            time.sleep(delay)
+            print('[INFO]There\'s no any demo to download, download process accomplished. The program will now exit.')
+            break
         try:
             continuetoken = str(re.findall(r'\"continue_token\"\:\"[0-9]+\"', CompetitionList)[0]).replace('"','').replace('continue_token:','')
             print('[INFO]New continue token has been set. If you enabled previous download mode, this token will work.')
