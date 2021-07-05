@@ -42,7 +42,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
 
-if steamcustomid == '' and steamid64 != 0:
+if steamcustomid == '' and int(steamid64) != 0 and steamid64 != '':
     CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(steamid64)
 elif steamcustomid != '':
     CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(steamcustomid)
