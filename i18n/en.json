@@ -14,5 +14,6 @@
     "warn.proxies.disabled": "[WARN]Proxies not set yet, the program will not run as proxy mode.",
     "warn.continuetoken.notfound": "[WARN]continue token not found. Don't worry, we will use the previous one.",
     "error.idnotset": "[ERROR]Neither steamid64 nor steamcusomid has been set. The program will exit now.",
+    "error.sessionid.notfound": "[ERROR]Sessionid cannot be found. Please check your cookie is right or not.",
     "tips.continue": "Press ENTER to continue..."
 }

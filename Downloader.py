@@ -15,9 +15,9 @@ steamcustomid = config['steamcustomid']
 steamid64 = config['steamid64']
 proxies = config['proxies']
 cookie = config['steamcookie']
+encoding = config['encoding']
 cookieSimple = SimpleCookie(cookie)
 cookieDecoded = {i.key:i.value for i in cookieSimple.values()}
-sessionid=cookieDecoded['sessionid']
 previousdownload=config['previousdownload']
 continuetoken=0
 delay=config['delay']
@@ -40,9 +40,15 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
 
-with open('./i18n/{}.json'.format(lang),'r') as langfile:
-    LangDict = js.load(langfile)
-    langfile.close()
+try:
+    with open('./i18n/{}.json'.format(lang),'r',encoding=encoding) as langfile:
+        LangDict = js.load(langfile)
+        langfile.close()
+except FileNotFoundError as e:
+    print('[ERROR]Language file {}.json not found! The program will run in English.'.format(lang))
+    with open('./i18n/en.json'.format(lang),'r',encoding=encoding) as langfile:
+        LangDict = js.load(langfile)
+        langfile.close()
 
 if steamcustomid == '' and steamid64 != 0:
     CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(steamid64)
@@ -56,6 +62,11 @@ def LangString(langkey):
         return LangDict[langkey]
     except Exception as e:
         return e
+
+try:
+    sessionid=cookieDecoded['sessionid']
+except KeyError:
+    print(LangString('error.sessionid.notfound'))
 
 def progressbar(url,path):
     start = time.time() 
@@ -91,6 +102,7 @@ def Download():
     global CompetitionStatsLink
     if not CompetitionStatsLink:
         print(LangString('error.idnotset'))
+        input("\n" + LangString('tips.continue'))
         sys.exit()
     if(proxies['http']=='' and proxies['https']==''):
         print(LangString('warn.proxies.disabled'))

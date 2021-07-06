@@ -1,7 +1,19 @@
 {
-    "info.welcomemsg": "======================== Counter-Strike: Global Offensive Demo Downloader ========================\n    Thanks for your using on CSGO-Demo-AutoDownloader, This is a automatic downloader that helps you download your newest CSGO demos\n  The project is maintained by GamerNoTitle. If this project helps you, consider donate please.\n\nPaypal: https://paypal.me/GamerNoTitle\nafdian: https://afdian.net/@GamerNoTitle\nAlipay (QR Code): https://cdn.jsdelivr.net/gh/GamerNoTitle/Picture-repo-v1@master/img/Payments/AliPay.jpg\nWechatPay (QR Code): https://cdn.jsdelivr.net/gh/GamerNoTitle/Picture-repo-v1@master/img/Payments/WeChat.png\n==================================================================================================",
-    "info.download.start": "[INFO]Start download, File size:{size:.2f} MB",
-    "info.download.downloading": "[INFO]Downloading: ",
-    "info.download.complete": "[INFO]Download completed! Times: %.2f seconds",
-    "warn.download.failed": "[WARN]Download failed. {}"
+    "info.welcomemsg": "======================== Counter-Strike: Global Offensive Demo Downloader ========================\n感谢你使用CSGO Demo自动下载器，这是一个可以帮助你自动下载官匹Demo的软件。\n本项目由@GamerNoTitle维护，如果此项目帮助到了你，可以考虑一下捐赠√\n\nPaypal: https://paypal.me/GamerNoTitle\n爱发电: https://afdian.net/@GamerNoTitle\n支付宝 (二维码): https://cdn.jsdelivr.net/gh/GamerNoTitle/Picture-repo-v1@master/img/Payments/AliPay.jpg\n微信支付 (二维码): https://cdn.jsdelivr.net/gh/GamerNoTitle/Picture-repo-v1@master/img/Payments/WeChat.png\n==================================================================================================",
+    "info.download.start": "[信息]下载开始，文件大小：{size:.2f} MB",
+    "info.download.downloading": "[信息]下载中: ",
+    "info.download.complete": "[信息]下载完成！ 用时：%.2f seconds",
+    "info.download.nodemo": "[信息]目前已经没有待下载的Demo了，下载进程已经结束。程序将休眠{}秒后再次运行。",
+    "info.proxies.enabled": "[信息]代理已设置，程序将会以代理模式运行。",
+    "info.continuetoken.set": "[信息]新的continue token已经设置，如果你启用了旧Demo下载功能，这个Token将会用到。",
+    "info.file.exists": "[信息]Demo文件{}已存在，跳过当前下载进程。",
+    "info.file.downloading": "[信息]正在下载{}，文件链接：{}",
+    "info.previousdl.enabled": "[信息]旧Demo下载功能已启用，下载进程将继续。",
+    "info.previousdl.disabled": "[信息]旧Demo下载功能已禁用，本程序只会下载最近的4场比赛Demo。",
+    "warn.download.failed": "[警告]下载失败：{}",
+    "warn.proxies.disabled": "[警告]代理未设置，程序将不会以代理模式运行。",
+    "warn.continuetoken.notfound": "[警告]continue token未找到，别担心，我们会用之前获取到的作为代替。",
+    "error.idnotset": "[错误]steamid64和steamcusomid均未设置，程序将自动退出。",
+    "error.sessionid.notfound": "[错误]Sessionid无法找到，请检查Cookie是否正确！",
+    "tips.continue": "按回车以继续……"
 }
