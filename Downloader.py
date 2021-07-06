@@ -142,6 +142,11 @@ def Download():
             else:
                 CompetitionStatsLink = False
             time.sleep(delay)
+            if(proxies['http'] == '' and proxies['https'] == ''):
+                CompetitionList = r.get(CompetitionStatsLink, headers=headers).text
+            else:
+                CompetitionList = r.get(CompetitionStatsLink,
+                                        proxies=proxies, headers=headers).text
         try:
             continuetoken = str(re.findall(r'\"continue_token\"\:\"[0-9]+\"', CompetitionList)[
                                 0]).replace('"', '').replace('continue_token:', '')
