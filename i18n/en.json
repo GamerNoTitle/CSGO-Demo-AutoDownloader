@@ -1,0 +1,18 @@
+{
+    "info.welcomemsg": "======================== Counter-Strike: Global Offensive Demo Downloader ========================\n    Thanks for your using on CSGO-Demo-AutoDownloader, This is a automatic downloader that helps you download your newest CSGO demos\n  The project is maintained by GamerNoTitle. If this project helps you, consider donate please.\n\nPaypal: https://paypal.me/GamerNoTitle\nafdian: https://afdian.net/@GamerNoTitle\nAlipay (QR Code): https://cdn.jsdelivr.net/gh/GamerNoTitle/Picture-repo-v1@master/img/Payments/AliPay.jpg\nWechatPay (QR Code): https://cdn.jsdelivr.net/gh/GamerNoTitle/Picture-repo-v1@master/img/Payments/WeChat.png\n==================================================================================================",
+    "info.download.start": "[INFO]Start download, File size:{size:.2f} MB",
+    "info.download.downloading": "[INFO]Downloading: ",
+    "info.download.complete": "[INFO]Download completed! Times: %.2f seconds",
+    "info.download.nodemo": "[INFO]There's no any demo to download, download process accomplished. The program will now sleep for {} seconds and try again.",
+    "info.proxies.enabled": "[INFO]Proxies have been set, the program will run as proxy mode",
+    "info.continuetoken.set": "[INFO]New continue token has been set. If you enabled previous download mode, this token will work.",
+    "info.file.exists": "[INFO]Demo file {} exists, skipping download process.",
+    "info.file.downloading": "[INFO]Downloading {} from {}",
+    "info.previousdl.enabled": "[INFO]Previous download mode is enabled. Download process will continue.",
+    "info.previousdl.disabled": "[INFO]Previous download mode is disabled. The program will only download the latest 4 competitions.",
+    "warn.download.failed": "[WARN]Download failed. {}",
+    "warn.proxies.disabled": "[WARN]Proxies not set yet, the program will not run as proxy mode.",
+    "warn.continuetoken.notfound": "[WARN]continue token not found. Don't worry, we will use the previous one.",
+    "error.idnotset": "[ERROR]Neither steamid64 nor steamcusomid has been set. The program will exit now.",
+    "tips.continue": "Press ENTER to continue..."
+}

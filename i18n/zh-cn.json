@@ -1,0 +1,7 @@
+{
+    "info.welcomemsg": "======================== Counter-Strike: Global Offensive Demo Downloader ========================\n    Thanks for your using on CSGO-Demo-AutoDownloader, This is a automatic downloader that helps you download your newest CSGO demos\n  The project is maintained by GamerNoTitle. If this project helps you, consider donate please.\n\nPaypal: https://paypal.me/GamerNoTitle\nafdian: https://afdian.net/@GamerNoTitle\nAlipay (QR Code): https://cdn.jsdelivr.net/gh/GamerNoTitle/Picture-repo-v1@master/img/Payments/AliPay.jpg\nWechatPay (QR Code): https://cdn.jsdelivr.net/gh/GamerNoTitle/Picture-repo-v1@master/img/Payments/WeChat.png\n==================================================================================================",
+    "info.download.start": "[INFO]Start download, File size:{size:.2f} MB",
+    "info.download.downloading": "[INFO]Downloading: ",
+    "info.download.complete": "[INFO]Download completed! Times: %.2f seconds",
+    "warn.download.failed": "[WARN]Download failed. {}"
+}

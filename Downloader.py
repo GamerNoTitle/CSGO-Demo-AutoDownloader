@@ -22,7 +22,7 @@ WechatPay (QR Code): https://cdn.jsdelivr.net/gh/GamerNoTitle/Picture-repo-v1@ma
 '''
 
 print(WelcomeMsg)
-
+lang = config['lang']
 steamcustomid = config['steamcustomid']
 steamid64 = config['steamid64']
 proxies = config['proxies']
@@ -52,12 +52,22 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
 
+with open('./i18n/{}.json'.format(lang),'r') as langfile:
+    LangDict = js.load(langfile)
+    langfile.close()
+
 if steamcustomid == '' and steamid64 != 0:
     CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(steamid64)
 elif steamcustomid != '':
     CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(steamcustomid)
 else:  
     CompetitionStatsLink = False
+
+def LangString(langkey):
+    try:
+        return LangDict[langkey]
+    except Exception as e:
+        return e
 
 def progressbar(url,path):
     start = time.time() 
@@ -79,8 +89,8 @@ def progressbar(url,path):
                     print('\r'+'[INFO]Downloading: %s%.2f%%' % ('>'*int(size*50/ content_size), float(size / content_size * 100)) ,end=' ')
         end = time.time()
         print('\n[INFO]Download completed! Times: %.2f seconds' % (end - start))
-    except:
-        print('[INFO]Download failed.')
+    except Exception as e:
+        print('[WARN]Download failed. {}'.format(e))
 
 if steamcustomid == '' and steamid64 != 0:
     CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(steamid64)
@@ -103,7 +113,7 @@ def Download():
         CompetitionList = r.get(CompetitionStatsLink, proxies=proxies, headers=headers).text
     while True:
         LinkList=[]
-        LinkList = re.findall(r'"http:\\\/\\\/replay141.valve.net\\\/730\\\/................................\.dem\.bz2', CompetitionList)
+        LinkList = re.findall(r'"http:\\\/\\\/replay141\.valve\.net\\\/730\\\/................................\.dem\.bz2', CompetitionList)
         if LinkList == []:
             print('[INFO]There\'s no any demo to download, download process accomplished. The program will now sleep for {} seconds and work again.'.format(delay))
             if steamcustomid == '' and steamid64 != 0:
@@ -136,7 +146,7 @@ def Download():
             else:
                 CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(continuetoken,sessionid),headers=headers).text
         else:
-            print('[INFO]Previous download mode is disabled. The program will now exit.')
+            print('[INFO]Previous download mode is disabled. The program will only download the latest 4 competitions.')
             
 
 if __name__ == '__main__':
