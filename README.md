@@ -1,7 +1,7 @@
 <div align='center'>
     <h1>CSGO-Demo-AutoDownloader</h1>
     <h2>Language</h2>
-    English | <a href=''>简体中文</a>
+    English | <a href='https://github.com/GamerNoTitle/CSGO-Demo-AutoDownloader/blob/master/docs/zh-cn.md'>简体中文</a>
 </div>
 
 ## What's this
