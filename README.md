@@ -18,7 +18,7 @@ You can download it from [RELEASE](https://github.com/GamerNoTitle/CSGO-Demo-Aut
 
 You can find it in the address bar of your Steam profile. The following number is the `steamid64`.
 
-For example, my Steam profile link is [https://steamcommunity.com/profiles/76561198309889674/](https://steamcommunity.com/profiles/76561198309889674/). Then the `steamid64` should be 76561198309889674
+For example, my Steam profile link is [https://steamcommunity.com/profiles/76561198309889674/](https://steamcommunity.com/profiles/76561198309889674/). Then the `steamid64` should be `76561198309889674`
 
 #### steamcustomid
 
