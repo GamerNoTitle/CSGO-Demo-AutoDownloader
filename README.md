@@ -48,26 +48,31 @@ When you download the pack from RELEASE page (or clone the source code), you got
 
 ```json
 {
+    "lang": "en",
+    "encoding": "utf8",
     "delay": 3600,
     "steamid64": 0,
     "steamcustomid": "",
     "steamcookie": "",
-    "previousdownload": true,
+    "previousdownload": false,
     "proxies": {
         "http": "",
         "https": ""
     }
 }
+
 ```
 
-| Variable         | Detail                                                       | Required                                               | Variable Type          |
-| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------ | ---------------------- |
-| delay            | The frequency of the program to check your competition history for one time (Count in SECOND) | √                                                      | Integer greater than 0 |
-| steamid64        | The 64 bits id of your Steam account, you can check it on [steamid.io](https://steamid.io/) or from your profile page link (e.g. In the link [http://steamcommunity.com/profiles/76561198309889674](http://steamcommunity.com/profiles/76561198309889674), the steamid64 should be 76561198309889674) | × (If `steamcustomid` is filled, this can leave blank) | Integer                |
-| steamcustomid    | The custom url you set in your profile editing page (e.g. In the link [https://steamcommunity.com/id/bili33](https://steamcommunity.com/id/bili33), the steamcustomid should be bili33) | × (If you leave it blank, you should fill `steamid64`) | String                 |
-| steamcookie      | The cookie you use in your browser when you are visiting Steam (Before you fill it, you should convert it by using [my convert tool](https://github.com/GamerNoTitle/CSGO-Demo-AutoDownloader/releases/tag/CookieCoverter)) | √                                                      | String                 |
-| previousdownload | Whether the program should download your previous competition demo (Since the page can only contain the latest 4 competitions at once, you should tell the program should it download the previous competition except for the latest 4 competitions) | ×                                                      | bool (true/false)      |
-| proxies          | Whether the program should use proxy to connect to the Steam server and download the demo from valve's server | ×                                                      | String                 |
+| Variable         | Detail                                                       | Required                                               | Variable Type                                                |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------------ |
+| lang             | The language you use in this program.                        | √                                                      | String, should be the same as the language file in `i18n` folder |
+| encoding         | The encoding method of reading the language file             | √                                                      | Normally leave it as `utf8` will work, or some other encoding methods. |
+| delay            | The frequency of the program to check your competition history for one time (Count in SECOND) | √                                                      | Integer greater than 0                                       |
+| steamid64        | The 64 bits id of your Steam account, you can check it on [steamid.io](https://steamid.io/) or from your profile page link (e.g. In the link [http://steamcommunity.com/profiles/76561198309889674](http://steamcommunity.com/profiles/76561198309889674), the steamid64 should be 76561198309889674) | × (If `steamcustomid` is filled, this can leave blank) | Integer                                                      |
+| steamcustomid    | The custom url you set in your profile editing page (e.g. In the link [https://steamcommunity.com/id/bili33](https://steamcommunity.com/id/bili33), the steamcustomid should be bili33) | × (If you leave it blank, you should fill `steamid64`) | String                                                       |
+| steamcookie      | The cookie you use in your browser when you are visiting Steam (Before you fill it, you should convert it by using [my convert tool](https://github.com/GamerNoTitle/CSGO-Demo-AutoDownloader/releases/tag/CookieCoverter)) | √                                                      | String                                                       |
+| previousdownload | Whether the program should download your previous competition demo (Since the page can only contain the latest 4 competitions at once, you should tell the program should it download the previous competition except for the latest 4 competitions) | ×                                                      | bool (true/false)                                            |
+| proxies          | Whether the program should use proxy to connect to the Steam server and download the demo from valve's server | ×                                                      | String                                                       |
 
 ### Run the program
 
