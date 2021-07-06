@@ -130,7 +130,7 @@ def Download():
     while True:
         LinkList = []
         LinkList = re.findall(
-            r'"http:\\\/\\\/replay141\.valve\.net\\\/730\\\/................................\.dem\.bz2', CompetitionList)
+            r'"http:\\\/\\\/replay1[0-9][0-9]\.valve\.net\\\/730\\\/................................\.dem\.bz2', CompetitionList)
         if LinkList == []:
             print(LangString('info.download.nodemo').format(delay))
             if steamcustomid == '' and steamid64 != 0:
