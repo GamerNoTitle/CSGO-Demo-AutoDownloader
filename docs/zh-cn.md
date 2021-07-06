@@ -26,7 +26,7 @@
 
 #### steamcookie
 
-打开你的浏览器并访问https://store.steampowered.com ，按下 <kbd>F12</kbd> 来打开开发者工具，点击`Network`（网络），然后刷新网页, 你会在顶部找到一条 `store.steampowered.com`的记录
+打开你的浏览器并访问~~https://store.steampowered.com~~ https://steamcommunity.com ，按下 <kbd>F12</kbd> 来打开开发者工具，点击`Network`（网络），然后刷新网页, 你会在顶部找到一条 ~~`store.steampowered.com`~~ `steamcommunity.com`的记录（**一定要是社区的Cookie**）
 
 ![](https://user-images.githubusercontent.com/28426291/124483233-ae322e80-dddc-11eb-82a3-09e3e479073e.png)
 
