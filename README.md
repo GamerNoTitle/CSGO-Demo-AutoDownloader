@@ -30,7 +30,7 @@ For example, my profile link is [https://steamcommunity.com/id/bili33](https://s
 
 #### steamcookie
 
-Open up your browser and visit ~~https://store.steampowered.com~~ https://steamcommunity.com, press <kbd>F12</kbd> to start up a developer tool, click on `Network`, and refresh the Steam website, you will find a ~~`store.steampowered.com`~~ `steamcommunity.com` on the top of the list.
+Open up your browser and visit ~~https://store.steampowered.com~~ https://steamcommunity.com, press <kbd>F12</kbd> to start up a developer tool, click on `Network`, and refresh the Steam website, you will find a ~~`store.steampowered.com`~~ `steamcommunity.com` on the top of the list. (**Store cookie will not work, please use community one!**)
 
 ![](https://user-images.githubusercontent.com/28426291/124483233-ae322e80-dddc-11eb-82a3-09e3e479073e.png)
 
