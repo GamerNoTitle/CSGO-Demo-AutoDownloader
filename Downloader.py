@@ -116,11 +116,11 @@ else:
 def Download():
     global CompetitionStatsLink
     if not CompetitionStatsLink:
-        print(LangString('error.idnotset'))
+        print(LangString('error.idnotset')) # Neither steamid64 nor steamcustomid is not set and this will display
         input("\n" + LangString('tips.continue'))
         sys.exit()
     if(proxies['http'] == '' and proxies['https'] == ''):
-        print(LangString('warn.proxies.disabled'))
+        print(LangString('warn.proxies.disabled'))  # When the proxy is disabled, this message will tell the users.
         CompetitionList = r.get(CompetitionStatsLink, headers=headers).text
     else:
         print(LangString('info.proxies.enabled'))
@@ -132,7 +132,7 @@ def Download():
         LinkList = re.findall(
             r'"http:\\\/\\\/replay1[0-9][0-9]\.valve\.net\\\/730\\\/................................\.dem\.bz2', CompetitionList)
         if LinkList == []:
-            print(LangString('info.download.nodemo').format(delay))
+            print(LangString('info.download.nodemo').format(delay)) # No Demo Message
             if steamcustomid == '' and steamid64 != 0:
                 CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
                     steamid64)
@@ -147,12 +147,13 @@ def Download():
             else:
                 CompetitionList = r.get(CompetitionStatsLink,
                                         proxies=proxies, headers=headers).text
-        try:
-            continuetoken = str(re.findall(r'\"continue_token\"\:\"[0-9]+\"', CompetitionList)[
-                                0]).replace('"', '').replace('continue_token:', '')
-            print(LangString('info.continuetoken.set'))
-        except:
-            print(LangString('warn.continuetoken.notfound'))
+        else:
+            try:
+                continuetoken = str(re.findall(r'\"continue_token\"\:\"[0-9]+\"', CompetitionList)[
+                                    0]).replace('"', '').replace('continue_token:', '')
+                print(LangString('info.continuetoken.set'))
+            except:
+                print(LangString('warn.continuetoken.notfound'))
         for link in LinkList:
             filelink = link
             filename = link[40:]
