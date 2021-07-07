@@ -130,7 +130,7 @@ def Download():
     while True:
         LinkList = []
         LinkList = re.findall(
-            r'"http:\\\/\\\/replay1[0-9][0-9]\.valve\.net\\\/730\\\/................................\.dem\.bz2', CompetitionList)
+            r'"http:\\\/\\\/replay1[0-9][0-9]\.valve\.net\\\/730\\\/[0-9]+_[0-9]+\.dem\.bz2', CompetitionList)
         if LinkList == []:
             print(LangString('info.download.nodemo').format(delay)) # No Demo Message
             if steamcustomid == '' and steamid64 != 0:
@@ -141,12 +141,12 @@ def Download():
                     steamcustomid)
             else:
                 CompetitionStatsLink = False
-            time.sleep(delay)
             if(proxies['http'] == '' and proxies['https'] == ''):
                 CompetitionList = r.get(CompetitionStatsLink, headers=headers).text
             else:
                 CompetitionList = r.get(CompetitionStatsLink,
                                         proxies=proxies, headers=headers).text
+            break
         else:
             try:
                 continuetoken = str(re.findall(r'\"continue_token\"\:\"[0-9]+\"', CompetitionList)[
@@ -178,7 +178,6 @@ def Download():
         else:
             print(LangString('info.previousdl.disabled'))
             print(LangString('info.download.nodemo').format(delay))
-            time.sleep(delay)
 
 
 if __name__ == '__main__':
@@ -190,5 +189,7 @@ if __name__ == '__main__':
         print(LangString('error.sessionid.notfound'))
         input("\n" + LangString('tips.continue'))
         sys.exit()
-    Download()
+    while True:
+        Download()
+        time.sleep(delay)
     input("\n" + LangString('tips.continue'))
