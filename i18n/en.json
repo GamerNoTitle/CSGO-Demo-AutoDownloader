@@ -17,6 +17,6 @@
     "error.idnotset": "[ERROR]Neither steamid64 nor steamcusomid has been set. The program will exit now.",
     "error.sessionid.notfound": "[ERROR]Sessionid cannot be found. Please check your cookie is right or not.",
     "error.connect.failed.prev": "[ERROR]Failed to connect. The following is the feedback message: \n",
-    "error.connect.failed.next": "[ERROR]Three seconds to restart the connection.",
+    "error.connect.failed.next": "\n[ERROR]Three seconds to restart the connection.",
     "tips.continue": "Press ENTER to continue..."
 }
