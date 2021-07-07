@@ -16,5 +16,7 @@
     "warn.continuetoken.notfound": "[警告]continue token未找到，别担心，我们会用之前获取到的作为代替。",
     "error.idnotset": "[错误]steamid64和steamcusomid均未设置，程序将自动退出。",
     "error.sessionid.notfound": "[错误]Sessionid无法找到，请检查Cookie是否正确！",
+    "error.connect.failed.prev": "[错误]无法建立连接，错误反馈为： \n",
+    "error.connect.failed.next": "[错误]三秒后程序将尝试重新建立连接",
     "tips.continue": "按回车以继续……"
 }

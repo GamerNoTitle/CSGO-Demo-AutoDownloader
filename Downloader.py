@@ -79,10 +79,16 @@ def LangString(langkey):
 
 def progressbar(url, path):
     start = time.time()
-    if(proxies['http'] == '' and proxies['https'] == ''):
-        response = r.get(url, stream=True)
-    else:
-        response = r.get(url, stream=True, proxies=proxies)
+    while True:
+        try:
+            if(proxies['http'] == '' and proxies['https'] == ''):
+                response = r.get(url, stream=True)
+            else:
+                response = r.get(url, stream=True, proxies=proxies)
+            break
+        except Exception as e:
+            print(LangString('error.connect.failed.prev')+e+', '+LangString('error.connect.failed.next'))
+            time.sleep(3)
     size = 0
     chunk_size = 1024
     content_size = int(response.headers['content-length'])
@@ -121,12 +127,25 @@ def Download():
         sys.exit()
     if(proxies['http'] == '' and proxies['https'] == ''):
         print(LangString('warn.proxies.disabled'))  # When the proxy is disabled, this message will tell the users.
-        CompetitionList = r.get(CompetitionStatsLink, headers=headers).text
+        while True:
+            try:
+                CompetitionList = r.get(CompetitionStatsLink, headers=headers).text
+                break
+            except Exception as e:
+                print(LangString('error.connect.failed.prev')+e+', '+LangString('error.connect.failed.next'))
+                time.sleep(3)
     else:
         print(LangString('info.proxies.enabled'))
         proxyenabled = True
-        CompetitionList = r.get(CompetitionStatsLink,
-                                proxies=proxies, headers=headers).text
+        while True:
+            try:
+                CompetitionList = r.get(CompetitionStatsLink,
+                                    proxies=proxies, headers=headers).text
+                break
+            except Exception as e:
+                print(LangString('error.connect.failed.prev')+e+', '+LangString('error.connect.failed.next'))
+                time.sleep(3)
+
     while True:
         LinkList = []
         LinkList = re.findall(
@@ -141,11 +160,17 @@ def Download():
                     steamcustomid)
             else:
                 CompetitionStatsLink = False
-            if(proxies['http'] == '' and proxies['https'] == ''):
-                CompetitionList = r.get(CompetitionStatsLink, headers=headers).text
-            else:
-                CompetitionList = r.get(CompetitionStatsLink,
-                                        proxies=proxies, headers=headers).text
+            while True:
+                try:
+                    if(proxies['http'] == '' and proxies['https'] == ''):
+                        CompetitionList = r.get(CompetitionStatsLink, headers=headers).text
+                    else:
+                        CompetitionList = r.get(CompetitionStatsLink,
+                                                proxies=proxies, headers=headers).text
+                    break
+                except Exception as e:
+                    print(LangString('error.connect.failed.prev')+e+', '+LangString('error.connect.failed.next'))
+                    time.sleep(3)
             break
         else:
             try:
@@ -169,12 +194,17 @@ def Download():
                 #     f.close
         if previousdownload:
             print(LangString('info.previousdl.enabled'))
-            if proxyenabled:
-                CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(
-                    continuetoken, sessionid), proxies=proxies, headers=headers).text
-            else:
-                CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(
-                    continuetoken, sessionid), headers=headers).text
+            while True:
+                try:
+                    if proxyenabled:
+                        CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(
+                            continuetoken, sessionid), proxies=proxies, headers=headers).text
+                    else:
+                        CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(
+                            continuetoken, sessionid), headers=headers).text
+                except Exception as e:
+                    print(LangString('error.connect.failed.prev')+e+', '+LangString('error.connect.failed.next'))
+                    time.sleep(3)
         else:
             print(LangString('info.previousdl.disabled'))
             print(LangString('info.download.nodemo').format(delay))
