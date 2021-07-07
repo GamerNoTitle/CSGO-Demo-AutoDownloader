@@ -10,6 +10,7 @@
     "info.file.downloading": "[信息]正在下载{}，文件链接：{}",
     "info.previousdl.enabled": "[信息]旧Demo下载功能已启用，下载进程将继续。",
     "info.previousdl.disabled": "[信息]旧Demo下载功能已禁用，本程序只会下载最近的4场比赛Demo。",
+    "info.loop.start": "[信息]休眠结束，即将开始下一轮记录检测……",
     "warn.download.failed": "[警告]下载失败：{}",
     "warn.proxies.disabled": "[警告]代理未设置，程序将不会以代理模式运行。",
     "warn.continuetoken.notfound": "[警告]continue token未找到，别担心，我们会用之前获取到的作为代替。",

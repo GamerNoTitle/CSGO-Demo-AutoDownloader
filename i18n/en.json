@@ -10,6 +10,7 @@
     "info.file.downloading": "[INFO]Downloading {} from {}",
     "info.previousdl.enabled": "[INFO]Previous download mode is enabled. Download process will continue.",
     "info.previousdl.disabled": "[INFO]Previous download mode is disabled. The program will only download the latest 4 competitions.",
+    "info.loop.start": "[INFO]Sleep process completed, starting the next download loop...",
     "warn.download.failed": "[WARN]Download failed. {}",
     "warn.proxies.disabled": "[WARN]Proxies not set yet, the program will not run as proxy mode.",
     "warn.continuetoken.notfound": "[WARN]continue token not found. Don't worry, we will use the previous one.",

@@ -192,4 +192,5 @@ if __name__ == '__main__':
     while True:
         Download()
         time.sleep(delay)
+        print('\n'+LangString('info.loop.start'))
     input("\n" + LangString('tips.continue'))
