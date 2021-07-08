@@ -87,7 +87,7 @@ def progressbar(url, path):
                 response = r.get(url, stream=True, proxies=proxies)
             break
         except Exception as e:
-            print(LangString('error.connect.failed.prev')+e +
+            print(LangString('error.connect.failed.prev')+str(e) +
                   ', '+LangString('error.connect.failed.next'))
             time.sleep(3)
     size = 0
@@ -136,7 +136,7 @@ def Download():
                     CompetitionStatsLink, headers=headers).text
                 break
             except Exception as e:
-                print(LangString('error.connect.failed.prev')+e +
+                print(LangString('error.connect.failed.prev')+str(e) +
                       ', '+LangString('error.connect.failed.next'))
                 time.sleep(3)
     else:
@@ -148,7 +148,7 @@ def Download():
                                         proxies=proxies, headers=headers).text
                 break
             except Exception as e:
-                print(LangString('error.connect.failed.prev')+e +
+                print(LangString('error.connect.failed.prev')+str(e) +
                       ', '+LangString('error.connect.failed.next'))
                 time.sleep(3)
 
@@ -177,7 +177,7 @@ def Download():
                                                 proxies=proxies, headers=headers).text
                     break
                 except Exception as e:
-                    print(LangString('error.connect.failed.prev')+e +
+                    print(LangString('error.connect.failed.prev')+str(e) +
                           ', '+LangString('error.connect.failed.next'))
                     time.sleep(3)
             break
@@ -212,7 +212,7 @@ def Download():
                         CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(
                             continuetoken, sessionid), headers=headers).text
                 except Exception as e:
-                    print(LangString('error.connect.failed.prev')+e +
+                    print(LangString('error.connect.failed.prev')+str(e) +
                           ', '+LangString('error.connect.failed.next'))
                     time.sleep(3)
         else:
