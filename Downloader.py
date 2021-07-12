@@ -20,6 +20,7 @@ with open('./config.json', 'r') as f:
     config = js.load(f)
     f.close()
 
+ProgramVersion = '1.0.8'
 lang = config['lang']
 steamcustomid = config['steamcustomid']
 steamid64 = config['steamid64']
@@ -223,6 +224,7 @@ def Download():
 if __name__ == '__main__':
     WelcomeMsg = LangString('info.welcomemsg')
     print(WelcomeMsg)
+    print("Version: " + ProgramVersion,end='\n')
     try:
         sessionid = cookieDecoded['sessionid']
     except KeyError:
