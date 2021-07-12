@@ -212,6 +212,7 @@ def Download():
                     else:
                         CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(
                             continuetoken, sessionid), headers=headers).text
+                    break
                 except Exception as e:
                     print(LangString('error.connect.failed.prev')+str(e) +
                           ', '+LangString('error.connect.failed.next'))
