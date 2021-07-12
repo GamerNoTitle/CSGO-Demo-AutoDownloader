@@ -20,7 +20,7 @@ with open('./config.json', 'r') as f:
     config = js.load(f)
     f.close()
 
-ProgramVersion = '1.0.8'
+ProgramVersion = '1.0.7'
 lang = config['lang']
 steamcustomid = config['steamcustomid']
 steamid64 = config['steamid64']
