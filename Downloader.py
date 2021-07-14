@@ -22,10 +22,10 @@ with open('./config.json', 'r') as f:
 
 ProgramVersion = '1.0.7'
 lang = config['lang']
-steamcustomid = config['steamcustomid']
-steamid64 = config['steamid64']
+steamcustomid = config['steam']['steamcustomid']
+steamid64 = config['steam']['steamid64']
 proxies = config['proxies']
-cookie = config['steamcookie']
+cookie = config['steam']['steamcookie']
 encoding = config['encoding']
 cookieSimple = SimpleCookie(cookie)
 cookieDecoded = {i.key: i.value for i in cookieSimple.values()}

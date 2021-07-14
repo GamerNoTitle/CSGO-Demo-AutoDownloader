@@ -2,12 +2,26 @@
     "lang": "en",
     "encoding": "utf8",
     "delay": 3600,
-    "steamid64": 0,
-    "steamcustomid": "",
-    "steamcookie": "",
     "previousdownload": false,
+    "steam": {
+        "steamid64": 0,
+        "steamcustomid": "",
+        "steamcookie": ""
+    },
+    "5eplay": {
+        "id": 0
+    },
+    "perfectworld": {
+        "id": 0
+    },
     "proxies": {
+        "enable": false,
         "http": "",
-        "https": ""
+        "https": "",
+        "global": false,
+        "site": {
+            "steamcommunity.com": false,
+            "replay.valve.com": false
+        }
     }
 }
