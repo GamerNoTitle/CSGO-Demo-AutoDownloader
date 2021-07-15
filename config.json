@@ -9,10 +9,7 @@
         "steamcookie": ""
     },
     "5eplay": {
-        "id": 0
-    },
-    "perfectworld": {
-        "id": 0
+        "id": ""
     },
     "proxies": {
         "enable": false,
@@ -21,7 +18,8 @@
         "global": false,
         "site": {
             "steamcommunity.com": false,
-            "replay.valve.com": false
+            "replay.valve.com": false,
+            "5eplay.com"
         }
     }
 }

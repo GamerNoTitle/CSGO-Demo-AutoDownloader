@@ -1,6 +1,7 @@
 import json as js
 import time
 import re
+from typing import Match
 import requests as r
 from http.cookies import SimpleCookie
 import os
@@ -20,7 +21,7 @@ with open('./config.json', 'r') as f:
     config = js.load(f)
     f.close()
 
-ProgramVersion = '1.0.7'
+ProgramVersion = '1.0.8'
 lang = config['lang']
 steamcustomid = config['steam']['steamcustomid']
 steamid64 = config['steam']['steamid64']
@@ -78,11 +79,11 @@ def LangString(langkey):
         return e
 
 
-def progressbar(url, path):
+def progressbar(url, path, proxy):
     start = time.time()
     while True:
         try:
-            if(proxies['http'] == '' and proxies['https'] == ''):
+            if(not proxy):
                 response = r.get(url, stream=True)
             else:
                 response = r.get(url, stream=True, proxies=proxies)
@@ -121,111 +122,126 @@ else:
     CompetitionStatsLink = False
 
 
-def Download():
-    global CompetitionStatsLink
-    if not CompetitionStatsLink:
-        # Neither steamid64 nor steamcustomid is not set and this will display
-        print(LangString('error.idnotset'))
-        input("\n" + LangString('tips.continue'))
-        sys.exit()
-    if(proxies['http'] == '' and proxies['https'] == ''):
-        # When the proxy is disabled, this message will tell the users.
-        print(LangString('warn.proxies.disabled'))
+class FiveEPlay():
+    def Match(playerID):
+        PlayerLink = 'https://arena.5eplay.com/data/player/{}'.format(playerID)
         while True:
-            try:
-                CompetitionList = r.get(
-                    CompetitionStatsLink, headers=headers).text
-                break
-            except Exception as e:
-                print(LangString('error.connect.failed.prev')+str(e) +
-                      ', '+LangString('error.connect.failed.next'))
-                time.sleep(3)
-    else:
-        print(LangString('info.proxies.enabled'))
-        proxyenabled = True
-        while True:
-            try:
-                CompetitionList = r.get(CompetitionStatsLink,
-                                        proxies=proxies, headers=headers).text
-                break
-            except Exception as e:
-                print(LangString('error.connect.failed.prev')+str(e) +
-                      ', '+LangString('error.connect.failed.next'))
-                time.sleep(3)
-
-    while True:
-        LinkList = []
-        LinkList = re.findall(
-            r'"http:\\\/\\\/replay1[0-9][0-9]\.valve\.net\\\/730\\\/[0-9]+_[0-9]+\.dem\.bz2', CompetitionList)
-        if LinkList == []:
-            # No Demo Message
-            print(LangString('info.download.nodemo').format(delay))
-            if steamcustomid == '' and steamid64 != 0:
-                CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
-                    steamid64)
-            elif steamcustomid != '':
-                CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
-                    steamcustomid)
+            if config['proxies']['enable'] and (config['proxies']['global'] or config['proxies']['site']['5eplay.com']):
+                PlayerInfo = r.get(PlayerLink, proxies=proxies)
             else:
-                CompetitionStatsLink = False
-            while True:
-                try:
-                    if(proxies['http'] == '' and proxies['https'] == ''):
-                        CompetitionList = r.get(
-                            CompetitionStatsLink, headers=headers).text
-                    else:
-                        CompetitionList = r.get(CompetitionStatsLink,
-                                                proxies=proxies, headers=headers).text
-                    break
-                except Exception as e:
-                    print(LangString('error.connect.failed.prev')+str(e) +
-                          ', '+LangString('error.connect.failed.next'))
-                    time.sleep(3)
+                PlayerInfo = r.get(PlayerLink)
             break
-        else:
-            try:
-                continuetoken = str(re.findall(r'\"continue_token\"\:\"[0-9]+\"', CompetitionList)[
-                                    0]).replace('"', '').replace('continue_token:', '')
-                print(LangString('info.continuetoken.set'))
-            except:
-                print(LangString('warn.continuetoken.notfound'))
-        for link in LinkList:
-            filelink = link
-            filename = link[40:]
-            if os.path.exists('./Demo/'+filename):
-                print(LangString('info.file.exists').format(filename))
-            else:
-                print(LangString('info.file.downloading').format(
-                    filename, filelink.replace('\\', '').replace('"', '')))
-                progressbar(filelink.replace('\\', '').replace(
-                    '"', ''), './Demo/'+filename)
-                # with open('./Demo/'+filename,'wb+') as f:
-                #     f.write(r.get(filelink.replace('\\','').replace('"','')).content)
-                #     f.close
-        if previousdownload:
-            print(LangString('info.previousdl.enabled'))
+        MatchResult = re.findall(re.findall(
+            r'https\:\/\/cd\-demo\.5eplaycdn\.com\/pug\/[0-9]+\/g151-n-[0-9]+_.+?\.zip', str(PlayerInfo.content)))
+        return MatchResult
+
+    def Download(playerID):
+        None
+
+
+class Steam():
+    def Download():
+        global CompetitionStatsLink
+        if not CompetitionStatsLink:
+            # Neither steamid64 nor steamcustomid is not set and this will display
+            print(LangString('error.idnotset'))
+            input("\n" + LangString('tips.continue'))
+            sys.exit()
+        if(proxies['enable'] and (proxies['global'] or proxies['site']['steamcommunity.com'])):
+            print(LangString('info.proxies.enabled'))
             while True:
                 try:
-                    if proxyenabled:
-                        CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(
-                            continuetoken, sessionid), proxies=proxies, headers=headers).text
-                    else:
-                        CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(
-                            continuetoken, sessionid), headers=headers).text
+                    CompetitionList = r.get(CompetitionStatsLink,
+                                            proxies=proxies, headers=headers).text
                     break
                 except Exception as e:
                     print(LangString('error.connect.failed.prev')+str(e) +
                           ', '+LangString('error.connect.failed.next'))
                     time.sleep(3)
         else:
-            print(LangString('info.previousdl.disabled'))
-            print(LangString('info.download.nodemo').format(delay))
+            # When the proxy is disabled, this message will tell the users.
+            print(LangString('warn.proxies.disabled'))
+            while True:
+                try:
+                    CompetitionList = r.get(
+                        CompetitionStatsLink, headers=headers).text
+                    break
+                except Exception as e:
+                    print(LangString('error.connect.failed.prev')+str(e) +
+                          ', '+LangString('error.connect.failed.next'))
+                    time.sleep(3)
+
+        while True:
+            LinkList = []
+            LinkList = re.findall(
+                r'"http:\\\/\\\/replay1[0-9][0-9]\.valve\.net\\\/730\\\/[0-9]+_[0-9]+\.dem\.bz2', CompetitionList)
+            if LinkList == []:
+                # No Demo Message
+                print(LangString('info.download.nodemo').format(delay))
+                if steamcustomid == '' and steamid64 != 0:
+                    CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
+                        steamid64)
+                elif steamcustomid != '':
+                    CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
+                        steamcustomid)
+                else:
+                    CompetitionStatsLink = False
+                while True:
+                    try:
+                        if(proxies['enable'] and (proxies['global'] or proxies['site']['steamcommunity.com'])):
+                            CompetitionList = r.get(CompetitionStatsLink,
+                                                    proxies=proxies, headers=headers).text
+                        else:
+                            CompetitionList = r.get(
+                                CompetitionStatsLink, headers=headers).text
+                        break
+                    except Exception as e:
+                        print(LangString('error.connect.failed.prev')+str(e) +
+                              ', '+LangString('error.connect.failed.next'))
+                        time.sleep(3)
+                break
+            else:
+                try:
+                    continuetoken = str(re.findall(r'\"continue_token\"\:\"[0-9]+\"', CompetitionList)[
+                                        0]).replace('"', '').replace('continue_token:', '')
+                    print(LangString('info.continuetoken.set'))
+                except:
+                    print(LangString('warn.continuetoken.notfound'))
+            for link in LinkList:
+                filelink = link
+                filename = link[40:]
+                if os.path.exists('./Demo/'+filename):
+                    print(LangString('info.file.exists').format(filename))
+                else:
+                    print(LangString('info.file.downloading').format(
+                        filename, filelink.replace('\\', '').replace('"', '')))
+                    progressbar(filelink.replace('\\', '').replace(
+                        '"', ''), './Demo/'+filename, (proxies['enable'] and (proxies['global'] or proxies['site']['steamcommunity.com'])))
+                    # the third one will tell the function whether the proxy mode is enabled.
+            if previousdownload:
+                print(LangString('info.previousdl.enabled'))
+                while True:
+                    try:
+                        if(proxies['enable'] and (proxies['global'] or proxies['site']['steamcommunity.com'])):
+                            CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(
+                                continuetoken, sessionid), proxies=proxies, headers=headers).text
+                        else:
+                            CompetitionList = r.get(CompetitionStatsLink+'&continue_token={}&sessionid={}'.format(
+                                continuetoken, sessionid), headers=headers).text
+                        break
+                    except Exception as e:
+                        print(LangString('error.connect.failed.prev')+str(e) +
+                              ', '+LangString('error.connect.failed.next'))
+                        time.sleep(3)
+            else:
+                print(LangString('info.previousdl.disabled'))
+                print(LangString('info.download.nodemo').format(delay))
 
 
 if __name__ == '__main__':
     WelcomeMsg = LangString('info.welcomemsg')
     print(WelcomeMsg)
-    print("Version: " + ProgramVersion,end='\n')
+    print("Version: " + ProgramVersion, end='\n')
     try:
         sessionid = cookieDecoded['sessionid']
     except KeyError:
@@ -233,7 +249,7 @@ if __name__ == '__main__':
         input("\n" + LangString('tips.continue'))
         sys.exit()
     while True:
-        Download()
+        Steam.Download()
         time.sleep(delay)
         print('\n'+LangString('info.loop.start'))
     input("\n" + LangString('tips.continue'))
