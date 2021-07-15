@@ -19,7 +19,7 @@
         "site": {
             "steamcommunity.com": false,
             "replay.valve.com": false,
-            "5eplay.com"
+            "5eplay.com": false
         }
     }
 }
