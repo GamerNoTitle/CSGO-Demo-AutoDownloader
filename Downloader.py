@@ -62,10 +62,10 @@ except FileNotFoundError as e:
         langfile.close()
 
 if steamcustomid == '' and steamid64 != 0:
-    CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
+    CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?tab=matchhistorycompetitive".format(
         steamid64)
 elif steamcustomid != '':
-    CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
+    CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?tab=matchhistorycompetitive".format(
         steamcustomid)
 else:
     CompetitionStatsLink = False
@@ -109,17 +109,6 @@ def progressbar(url, path, proxy):
         print('\n' + LangString('info.download.complete') % (end - start))
     except Exception as e:
         print(LangString('warn.download.failed').format(e))
-
-
-if steamcustomid == '' and steamid64 != 0:
-    CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
-        steamid64)
-elif steamcustomid != '':
-    CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
-        steamcustomid)
-else:
-    CompetitionStatsLink = False
-
 
 class FiveEPlay():
     def Match(playerID):
@@ -173,18 +162,21 @@ class Steam():
         while True:
             LinkList = []
             OfficialLinkList = re.findall(
-                r'"http:\\\/\\\/replay1[0-9][0-9]\.valve\.net\\\/730\\\/[0-9]+_[0-9]+\.dem\.bz2', CompetitionList)
+                r'"http:\/\/replay1[0-9][0-9]\.valve\.net\/730\/[0-9]+_[0-9]+\.dem\.bz2', CompetitionList)
             PerfectWorldLinkList = re.findall(
-                r'"http:\\\/\\\/replay1[0-9][0-9]\.wmsj\.cn\\\/730\\\/[0-9]+_[0-9]+\.dem\.bz2', CompetitionList)
+                r'"http:\/\/replay[0-9][0-9][0-9]\.wmsj\.cn\/730\/[0-9]+_[0-9]+\.dem\.bz2', CompetitionList)
             LinkList = OfficialLinkList + PerfectWorldLinkList
+            print(OfficialLinkList,PerfectWorldLinkList,LinkList)
+            # with open('./SteamCommuntiy.html', 'wt', encoding='utf8') as f:   # Debug
+            #     f.write(CompetitionList)
             if LinkList == []:
                 # No Demo Message
                 print(LangString('info.download.nodemo').format(delay))
                 if steamcustomid == '' and steamid64 != 0:
-                    CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
+                    CompetitionStatsLink = "https://steamcommunity.com/profile/{}/gcpd/730?&tab=matchhistorycompetitive".format(
                         steamid64)
                 elif steamcustomid != '':
-                    CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?ajax=1&tab=matchhistorycompetitive".format(
+                    CompetitionStatsLink = "https://steamcommunity.com/id/{}/gcpd/730?&tab=matchhistorycompetitive".format(
                         steamcustomid)
                 else:
                     CompetitionStatsLink = False
@@ -204,8 +196,8 @@ class Steam():
                 break
             else:
                 try:
-                    continuetoken = str(re.findall(r'\"continue_token\"\:\"[0-9]+\"', CompetitionList)[
-                                        0]).replace('"', '').replace('continue_token:', '')
+                    continuetoken = str(re.findall(r"var g_sGcContinueToken = \'[0-9]+\';", CompetitionList)[
+                                        0]).replace('var g_sGcContinueToken = \'', '').replace('\';', '')
                     print(LangString('info.continuetoken.set'))
                 except:
                     print(LangString('warn.continuetoken.notfound'))
