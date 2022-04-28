@@ -1,7 +1,6 @@
 import json as js
 import time
 import re
-from typing import Match
 import requests as r
 from http.cookies import SimpleCookie
 import os
@@ -173,8 +172,11 @@ class Steam():
 
         while True:
             LinkList = []
-            LinkList = re.findall(
+            OfficialLinkList = re.findall(
                 r'"http:\\\/\\\/replay1[0-9][0-9]\.valve\.net\\\/730\\\/[0-9]+_[0-9]+\.dem\.bz2', CompetitionList)
+            PerfectWorldLinkList = re.findall(
+                r'"http:\\\/\\\/replay1[0-9][0-9]\.wmsj\.cn\\\/730\\\/[0-9]+_[0-9]+\.dem\.bz2', CompetitionList)
+            LinkList = OfficialLinkList + PerfectWorldLinkList
             if LinkList == []:
                 # No Demo Message
                 print(LangString('info.download.nodemo').format(delay))
